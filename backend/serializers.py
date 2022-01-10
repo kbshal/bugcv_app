@@ -7,5 +7,5 @@ from .models import Test
 class BackendSerializer(ModelSerializer):
     class Meta:
         model=Test
-        field='__all__'
+        fields='__all__'
 
