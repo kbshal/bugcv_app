@@ -3,11 +3,14 @@ from django.db import models
 
 
 class Test(models.Model):
-    name=models.TextField()
+    first_name=models.CharField(max_length=20)
+    last_name=models.CharField(max_length=20)
+    #name=first_name+last_name
     time=models.DateTimeField(auto_now=True)
 
     def __str__(self):
-        if len(self.name)>50:
-            return self.name[0:10]
+        print(time)
+        #if self.name>50:
+        return self.first_name,self.last_name
     
     

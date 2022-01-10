@@ -1,9 +1,8 @@
-from django.shortcuts import render,redirect
-from django.urls import path,include
-from django.http import Http404,HttpResponse
 from django.http import JsonResponse
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
+from .serializers import BackendSerializer
+from .models import Test
 
 @api_view(["GET"])
 def endpoints(request):
@@ -16,3 +15,9 @@ def endpoints(request):
         }
     ]
     return Response(routes)
+
+@api_view(["GET"])
+def access_api(request):
+    data=Test.objects.all()
+    serializer=BackendSerializer(data,many=True)
+    return Response(serializer.data)
