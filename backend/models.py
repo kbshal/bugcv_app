@@ -10,7 +10,6 @@ class Test(models.Model):
 
     def __str__(self):
         print(time)
-        #if self.name>50:
         return self.first_name,self.last_name
     
     
