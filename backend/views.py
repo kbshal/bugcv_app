@@ -27,11 +27,5 @@ def access_api(request):
 @api_view(["GET"]) 
 def get_by_id(request,pk):
     data=Test.objects.get(id=pk)
-    serializer=BackendSerializer(data,many=True)
+    serializer=BackendSerializer(data,many=False)
     return Response(serializer.data)
-    
-
-
-    
-    
-                                                                                           
