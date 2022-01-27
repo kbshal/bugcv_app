@@ -77,14 +77,12 @@ def deletedata(request,pk):
     return Response("Data was deleted!")
 
 
-
-
-
     #  authentication api starts from here
 
 
+
 class UserRecordView(APIView):
-    
+
     permission_classes = [IsAdminUser]
 
     def get(self, format=None):
@@ -107,14 +105,4 @@ class UserRecordView(APIView):
             },
             status=status.HTTP_400_BAD_REQUEST
         )
-
-
-
-
-
-
-
-
-
-
 
