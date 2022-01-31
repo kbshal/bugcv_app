@@ -1,14 +1,12 @@
 from rest_framework.serializers import ModelSerializer
 from .models import BackendData
-from django.contrib.auth.models import User
+from .models import User
 from rest_framework.validators import UniqueTogetherValidator
 
 class BackendSerializer(ModelSerializer):
     class Meta:
         model=BackendData
         fields='__all__'
-
-
 
 class UserSerializer(ModelSerializer):
 
@@ -18,6 +16,7 @@ class UserSerializer(ModelSerializer):
 
     class Meta:
         model = User
+        
         fields = (
             'username',
             'first_name',
@@ -31,3 +30,5 @@ class UserSerializer(ModelSerializer):
                 fields=['username', 'email']
             )
         ]
+        extra_kwargs = {'username': {'required': False}}
+

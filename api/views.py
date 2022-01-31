@@ -2,7 +2,7 @@
 from django.http import Http404
 from .models import BackendData
 from rest_framework.decorators import api_view
-from .serializer import BackendSerializer
+from .serializer import UserSerializer,BackendSerializer
 from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework import status
@@ -14,6 +14,8 @@ from django.contrib.auth.models import User
  This function shows us the all the available routes or enpoints 
 
 '''
+
+
 @api_view(["GET","POST"])
 def list_endpoints(request):
     routes= [
@@ -79,19 +81,17 @@ def deletedata(request,pk):
 
     #  authentication api starts from here
 
-
-
 class UserRecordView(APIView):
 
     permission_classes = [IsAdminUser]
 
     def get(self, format=None):
         users = User.objects.all()
-        serializer = BackendSerializer(users, many=True)
+        serializer =UserSerializer(users, many=True)
         return Response(serializer.data)
 
     def post(self, request):
-        serializer = BackendSerializer(data=request.data)
+        serializer = UserSerializer(data=request.data)
         if serializer.is_valid(raise_exception=ValueError):
             serializer.create(validated_data=request.data)
             return Response(
@@ -105,4 +105,3 @@ class UserRecordView(APIView):
             },
             status=status.HTTP_400_BAD_REQUEST
         )
-
