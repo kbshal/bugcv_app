@@ -86,8 +86,7 @@ class UserRecordView(APIView):
     permission_classes = [IsAdminUser]
 
     def get(self, format=None):
-        users = User.objects.all()
-        serializer =UserSerializer(users, many=True)
+        serializer = UserSerializer(self.request.user)
         return Response(serializer.data)
 
     def post(self, request):
