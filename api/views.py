@@ -2,7 +2,7 @@
 from django.http import Http404
 from .models import BackendData
 from rest_framework.decorators import api_view
-from .serializer import UserSerializer, BackendSerializer,CreateUserSerializer
+from .serializer import UserSerializer,CreateUserSerializer
 from rest_framework.generics import CreateAPIView
 from rest_framework.views import APIView
 from rest_framework.response import Response

@@ -29,7 +29,7 @@ INSTALLED_APPS = [
     #my apps
     'api',
     'rest_framework',
-    #'corsheaders',
+    'corsheaders',
     'rest_framework.authtoken'
 ]
 
