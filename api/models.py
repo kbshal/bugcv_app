@@ -21,6 +21,13 @@ class User(models.Model):
     email=models.EmailField()
     password=models.CharField(max_length=30)
 
+class Patient(models.Model):
+    patient_name=models.CharField(max_length=20)
+    patient_age=models.IntegerField()
+    patient_number=models.IntegerField()
+    patient_address=models.CharField(max_length=20)
+    patient_history=models.ForeignKey(BackendData,on_delete=models.CASCADE)
+
 
 
     def __str__(self) -> str:
