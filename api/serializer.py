@@ -42,7 +42,7 @@ class CreateUserSerializer(ModelSerializer):
 
         )
 
-class UpdatePatientSerializer(ModelSerializer):
+class CreateUpdatePatientSerializer(ModelSerializer):
 
     class Meta:
         model = User

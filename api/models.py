@@ -12,7 +12,6 @@ class Patient(models.Model):
     patient_history=models.TextField()
 
 
-
     def __str__(self):
-        return self.patient_name.first_name
+        return self.patient_name.username
         
