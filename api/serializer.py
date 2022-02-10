@@ -4,12 +4,10 @@ from .models import Patient
 from rest_framework.validators import UniqueTogetherValidator
 
 
+
+# for fetching user info 
+
 class UserSerializer(ModelSerializer):
-
-    def create(self, validated_data):
-        user = User.objects.create_user(**validated_data)
-        return user
-
     class Meta:
         model = User
 
@@ -29,6 +27,8 @@ class UserSerializer(ModelSerializer):
         extra_kwargs = {'username': {'required': False}}
 
 
+# for creating or registering user
+
 class CreateUserSerializer(ModelSerializer):
 
     class Meta:
@@ -43,6 +43,9 @@ class CreateUserSerializer(ModelSerializer):
 
         )
 
+
+# patient create update model serializer
+
 class CreateUpdatePatientSerializer(ModelSerializer):
 
     class Meta:
@@ -55,5 +58,4 @@ class CreateUpdatePatientSerializer(ModelSerializer):
            'patient_address',
            'patient_history',
            
-
         )
