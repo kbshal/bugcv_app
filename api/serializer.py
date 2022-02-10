@@ -41,3 +41,18 @@ class CreateUserSerializer(ModelSerializer):
             'password',
 
         )
+
+class UpdatePatientSerializer(ModelSerializer):
+
+    class Meta:
+        model = User
+
+        fields = (
+           'patient_name',
+           'patient_age',
+           'patient_number',
+           'patient_address',
+           'patient_history',
+           
+
+        )
