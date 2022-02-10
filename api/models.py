@@ -5,7 +5,7 @@ from django.contrib.auth.models import User
 
 
 class Patient(models.Model):
-    patient_name=models.OneToOneField(User,on_delete=models.CASCADE)
+    patient_name=models.OneToOneField(User,on_delete=models.CASCADE,blank=True,null=True)
     patient_age=models.IntegerField()
     patient_number=models.IntegerField()
     patient_address=models.CharField(max_length=20)

@@ -1,12 +1,12 @@
 
 from django.http import Http404
 from rest_framework.decorators import api_view
-from .serializer import UserSerializer,CreateUserSerializer,CreateUpdatePatientSerializer
-from rest_framework.generics import CreateAPIView,RetrieveUpdateAPIView
+from .serializer import UserSerializer, CreateUserSerializer, CreateUpdatePatientSerializer
+from rest_framework.generics import CreateAPIView, RetrieveUpdateAPIView
 from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework import status
-from rest_framework.permissions import IsAdminUser,AllowAny
+from rest_framework.permissions import IsAdminUser, AllowAny,IsAuthenticated
 from django.contrib.auth.models import User
 from .models import Patient
 
@@ -17,28 +17,28 @@ class CreateUserAPIView(CreateAPIView):
 
     serializer_class = CreateUserSerializer
 
-    def create(self,request,*args,**kwargs):
+    def create(self, request, *args, **kwargs):
         try:
-            super(CreateAPIView,self).create(request,*args,**kwargs)
-            return Response({"User created success":True})
+            super(CreateAPIView, self).create(request, *args, **kwargs)
+            return Response({"User created success": True})
         except Exception:
-            return Response({"User created success":False})
-        
+            return Response({"User created success": False})
 
 
-# for create patient 
+# for create patient
 
 class CreatePatientInfo(CreateAPIView):
     serializer_class = CreateUpdatePatientSerializer
-    def create(self,request,*args,**kwargs):
+    permission_classes = [IsAuthenticated,]
+    def create(self, request, *args, **kwargs):
         try:
-            super(CreatePatientInfo,self).create(request,*args,**kwargs)
-            return Response({"Patient Infomation Recorded":True})
-        except Exception:
-            return Response({"Patient Infomation Recorded":False})
-        
+            super(CreatePatientInfo, self).create(request, *args, **kwargs)
+            return Response({"Patient Infomation Recorded": True})
+        except Exception as e:
+            return Response({"Patient Infomation Recorded": False})
 
-    
+    def perform_create(self, serializer):
+        serializer.save(patient_name=self.request.user)
 
 
 # for login and retrieving token
@@ -46,11 +46,10 @@ class CreatePatientInfo(CreateAPIView):
 class UserRecordView(APIView):
 
     permission_classes = [IsAdminUser]
-    
+
     def get(self, format=None):
         serializer = UserSerializer(self.request.user)
         return Response(serializer.data)
-
 
     def post(self, request):
         serializer = UserSerializer(data=request.data)

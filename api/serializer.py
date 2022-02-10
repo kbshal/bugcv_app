@@ -1,5 +1,6 @@
 from rest_framework.serializers import ModelSerializer
 from django.contrib.auth.models import User
+from .models import Patient
 from rest_framework.validators import UniqueTogetherValidator
 
 
@@ -45,7 +46,7 @@ class CreateUserSerializer(ModelSerializer):
 class CreateUpdatePatientSerializer(ModelSerializer):
 
     class Meta:
-        model = User
+        model = Patient
 
         fields = (
            'patient_name',
