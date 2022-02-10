@@ -1,6 +1,5 @@
 
 from django.http import Http404
-from .models import BackendData
 from rest_framework.decorators import api_view
 from .serializer import UserSerializer,CreateUserSerializer
 from rest_framework.generics import CreateAPIView
@@ -20,10 +19,11 @@ class CreateUserAPIView(CreateAPIView):
 class UserRecordView(APIView):
 
     permission_classes = [IsAdminUser]
-
+    
     def get(self, format=None):
         serializer = UserSerializer(self.request.user)
         return Response(serializer.data)
+
 
     def post(self, request):
         serializer = UserSerializer(data=request.data)

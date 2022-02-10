@@ -1,5 +1,4 @@
 from rest_framework.serializers import ModelSerializer
-from .models import BackendData
 from django.contrib.auth.models import User
 from rest_framework.validators import UniqueTogetherValidator
 
@@ -36,5 +35,9 @@ class CreateUserSerializer(ModelSerializer):
 
         fields = (
             'username',
-            'password'
+            'first_name',
+            'last_name',
+            'email',
+            'password',
+
         )

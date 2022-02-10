@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import BackendData,User
+from .models import Patient
 
-admin.site.register(BackendData)
-admin.site.register(User)
+
+admin.site.register(Patient)
