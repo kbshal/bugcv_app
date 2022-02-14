@@ -44,7 +44,7 @@ class CreateUserSerializer(ModelSerializer):
         )
 
 
-# patient create update model serializer
+# patient create update model serializer    
 
 class CreateUpdatePatientSerializer(ModelSerializer):
 
@@ -52,7 +52,6 @@ class CreateUpdatePatientSerializer(ModelSerializer):
         model = Patient
 
         fields = (
-           'patient_name',
            'patient_age',
            'patient_number',
            'patient_address',
