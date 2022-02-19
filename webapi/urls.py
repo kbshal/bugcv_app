@@ -1,6 +1,9 @@
 from django.urls import path,include
 from rest_framework import routers
 from . import views
+
+
+
 router = routers.DefaultRouter()
 router.register("patient",views.CreateUser,basename="create_patient")
 router.register("doctor",views.CreateDoctor,basename="create_docter")

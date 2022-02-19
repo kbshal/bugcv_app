@@ -6,6 +6,9 @@ from rest_framework.authtoken.models import Token
 from rest_framework.views import APIView
 from rest_framework.permissions import IsAuthenticated
 from .perms import ISDoctor
+
+
+
 class CreateUser(ModelViewSet):
     queryset = User.objects.all()
     serializer_class = UserSerializer
@@ -16,8 +19,11 @@ class CreateUser(ModelViewSet):
             token = Token.objects.get(user=serializer.save())
             return Response({"token":token.key})
         return Response(serializer.errors)
+
+
 class CreateDoctor(CreateUser):
     serializer_class = DoctorSerializer
+
 class Profile(APIView):
     permission_classes = (IsAuthenticated,)
     def get(self,request,*args,**kwargs):
@@ -27,6 +33,8 @@ class Profile(APIView):
         else:
             type = "Doctor"
         return Response({"username":user.username,"email":user.email,"type":type})
+
+
 class PatientHistoryView(APIView):
     permission_classes = (IsAuthenticated,)
     def get(self,request,*args,**kwargs):
@@ -37,10 +45,12 @@ class PatientHistoryView(APIView):
         serializer = PatientHistorySerializer(history,many=True)
         return Response(serializer.data)
 #only doctor is allowed to create patient report
+
 class CreatePatientHistory(ModelViewSet):
     permission_classes = (ISDoctor,)
     serializer_class = PatientHistorySerializer
     http_method_names = ("post",)
+    
     def create(self,request,*args,**kwargs):
         serializer = self.serializer_class(data=request.data,context=request)
         if serializer.is_valid():
