@@ -12,5 +12,6 @@ urlpatterns = [
     path("create/",include(router.urls)),
     path("profile/",views.Profile.as_view()),
     path("history/",views.PatientHistoryView.as_view(),),
+    path("doc_info/<int:id>",views.get_info_by_id,name="doc_info"),
 ]
 

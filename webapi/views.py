@@ -1,4 +1,4 @@
-from .serializers import UserSerializer,DoctorSerializer,PatientHistorySerializer
+from .serializers import UserSerializer,DoctorSerializer,PatientHistorySerializer,DoctorSerializer
 from django.contrib.auth.models import User
 from rest_framework.viewsets import ModelViewSet
 from rest_framework.response import Response
@@ -6,6 +6,7 @@ from rest_framework.authtoken.models import Token
 from rest_framework.views import APIView
 from rest_framework.permissions import IsAuthenticated
 from .perms import ISDoctor
+from django.http import JsonResponse
 
 
 
@@ -42,7 +43,14 @@ class PatientHistoryView(APIView):
             history = request.user.patientHistory.all()
         else:
             history = request.user.history.all()
+
         serializer = PatientHistorySerializer(history,many=True)
+        for i in serializer.data:
+            i["doctor"]=User.objects.get(id=i["doctor"]).get_full_name()
+            i["patient"]=User.objects.get(id=i["patient"]).get_full_name()
+       
+
+
         return Response(serializer.data)
 #only doctor is allowed to create patient report
 
@@ -57,3 +65,14 @@ class CreatePatientHistory(ModelViewSet):
             serializer.save()
             return Response(serializer.data)
         return Response(serializer.errors)
+
+def get_info_by_id(request,id):
+   try:
+       doctor_info=User.objects.get(id=id,is_staff=True)
+   except User.DoesNotExist:
+        return JsonResponse({"error":"doctor does not exist"})
+   info=DoctorSerializer(doctor_info)
+   return JsonResponse(info.data)
+
+   
+

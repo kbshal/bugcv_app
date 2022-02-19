@@ -16,7 +16,9 @@ class DoctorSerializer(UserSerializer):
     def create(self,validated_data):
         return User.objects.create(**validated_data,is_staff=True)
 
-# to create the patient
+
+
+# to create the patient history
 class PatientHistorySerializer(serializers.ModelSerializer):
     class Meta:
         model = PatientHistory
@@ -25,3 +27,11 @@ class PatientHistorySerializer(serializers.ModelSerializer):
     def create(self,validated_data):
         validated_data["doctor"] = self.context.user
         return PatientHistory.objects.create(**validated_data)
+
+
+
+class DoctorSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = User
+        fields = ("first_name","last_name","email")
+    
