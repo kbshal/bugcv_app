@@ -33,7 +33,7 @@ class Profile(APIView):
             type = "Patient"
         else:
             type = "Doctor"
-        return Response({"username":user.username,"email":user.email,"type":type})
+        return Response({"id":user.id,"username":user.username,"email":user.email,"type":type})
 
 
 class PatientHistoryView(APIView):

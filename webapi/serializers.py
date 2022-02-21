@@ -24,6 +24,7 @@ class PatientHistorySerializer(serializers.ModelSerializer):
         model = PatientHistory
         fields = ("doctor","patient","remark","recorded_on",)
         extra_kwargs= {"doctor":{"required":False},}
+        
     def create(self,validated_data):
         validated_data["doctor"] = self.context.user
         return PatientHistory.objects.create(**validated_data)
